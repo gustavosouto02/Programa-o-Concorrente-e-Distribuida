@@ -1,0 +1,21 @@
+Q 01:
+Crie um programa que liste todos os processos ativos no sistema, exibindo seus PIDs, nomes e estados
+(ex.: "running", "sleeping").
+
+r:
+import psutil
+
+for proc in psutil.process_iter(['pid', 'name', 'status']):
+    try: 
+        if proc.info['status'] == psutil.STATUS_RUNNING:
+            print(f"PID: {proc.info['pid']}, Nome: {proc.info['name']}, Estado: {proc.info['status']}")
+    except(psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+        pass
+
+Q 02:
+Desenvolva um script que identifique o processo que está consumindo mais CPU no momento.
+Dica:
+Use psutil.process_iter() para iterar sobre os processos e recupere o atributo cpu_percent() de cada
+processo. Ordene os resultados e exiba o PID e o nome do processo com maior uso de CPU.
+
+
